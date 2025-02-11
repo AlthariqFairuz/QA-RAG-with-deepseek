@@ -30,6 +30,10 @@ const ChatApp : React.FC = () => {
       setIsLoading(true);
       const response = await fetch('http://localhost:8000/upload', {
         method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Origin': 'http://localhost:3000',
+        },
         body: formData,
       });
 
