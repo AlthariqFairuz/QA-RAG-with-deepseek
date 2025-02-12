@@ -1,0 +1,53 @@
+services:
+  ollama:
+    build:
+      context: ./Ollama  
+      dockerfile: Dockerfile  
+    container_name: ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - app_network
+    deploy:
+      resources:
+        reservations:
+          devices: # use GPU if available
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  backend:
+    build: 
+      context: ./BE
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - pdf_storage:/app/document_store/pdfs
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    networks:
+      - app_network
+
+  frontend:
+    build:
+      context: ./FE
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+volumes:
+  ollama_data:
+  pdf_storage:
+
+networks:
+  app_network:
+    driver: bridge

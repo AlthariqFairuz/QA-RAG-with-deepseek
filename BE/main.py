@@ -24,13 +24,15 @@ app.add_middleware(
 PDF_STORAGE_PATH = 'document_store/pdfs/'
 
 # Create embeddings layer
-EMBEDDING_MODEL = OllamaEmbeddings(model="deepseek-r1:1.5b")
+EMBEDDING_MODEL = OllamaEmbeddings(model="deepseek-r1:1.5b",
+                                   base_url="http://ollama:11434")
 
 # Create document vector database
 DOCUMENT_VECTOR_DB = InMemoryVectorStore(EMBEDDING_MODEL)
 
 # LLM Model
-LANGUAGE_MODEL = OllamaLLM(model="deepseek-r1:1.5b")
+LANGUAGE_MODEL = OllamaLLM(model="deepseek-r1:1.5b",
+                           base_url="http://ollama:11434")
 
 os.makedirs(PDF_STORAGE_PATH, exist_ok=True)
 
@@ -80,7 +82,7 @@ def generate_response(query : str , model : str = "deepseek-r1:1.5b") -> str:
         if LANGUAGE_MODEL.model != model:
             LANGUAGE_MODEL = OllamaLLM(model=model)
         
-        relevant_docs = DOCUMENT_VECTOR_DB.similarity_search(query)
+        relevant_docs = DOCUMENT_VECTOR_DB.similarity_search(query, k=3)
         context_text  = "\n\n".join([doc.page_content for doc in relevant_docs])
 
         prompt = ChatPromptTemplate(

@@ -1,8 +1,10 @@
 fastapi
 uvicorn
-langchain_community
-langchain_text_splitters
-langchain_core
-langchain_ollama
-pydantic
 python-multipart
+pydantic
+langchain
+langchain-community
+langchain-core
+langchain-ollama
+langchain_text_splitters
+pdfplumber
