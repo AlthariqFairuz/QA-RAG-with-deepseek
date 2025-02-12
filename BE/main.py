@@ -2,8 +2,8 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
-import uvicorn
 import os
+import uvicorn
 from langchain_community.document_loaders import PDFPlumberLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.vectorstores import InMemoryVectorStore
@@ -44,15 +44,6 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     response: str
-
-PROMPT_TEMPLATE = """
-You are an expert research assistant. Use the provided context to answer the query.
-If unsure, state that you don't know. Be concise and factual in your responses.
-
-Query: {query}
-Context: {context}
-Answer:
-"""
 
 def save_pdf(uploaded_file : UploadFile) -> str:
     file_path = os.path.join(PDF_STORAGE_PATH, uploaded_file.filename)

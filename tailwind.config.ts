@@ -13,7 +13,9 @@ export default {
   			background: 'var(--background)',
   			foreground: 'var(--foreground)',
 			"dark-bg": "#121212",
-			
+			"heading": "#7e9afc",
+			"chat-bg-user": "#5f7fb7",
+			"bot-bg" : "#668dfb",
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

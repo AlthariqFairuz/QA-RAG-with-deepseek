@@ -1,13 +1,13 @@
 "use client"
 
-import React, { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Bot, Send, Upload } from 'lucide-react';
-import { Message, ModelType, ChatResponse, UploadResponse } from '@/types/Chat';
+import { Message, ModelType, ChatResponse } from '@/types/Chat';
 
 const ChatApp : React.FC = () => {
   const { toast } = useToast();
@@ -39,10 +39,10 @@ const ChatApp : React.FC = () => {
 
       if (!response.ok) throw new Error('Upload failed');
 
-      const data: UploadResponse = await response.json();
       toast({
         title: "Success",
-        description: data.message,
+        description: "Document uploaded successfully",
+        variant: "success",
       });
     } catch (error) {
       toast({
@@ -105,20 +105,20 @@ const ChatApp : React.FC = () => {
   return (
     <div className='flex h-screen bg-dark-bg'>
             <div className="w-64 bg-neutral-800 p-4 flex flex-col">
-        <h2 className="text-xl font-bold text-emerald-400 mb-4">⚙️ Configuration</h2>
+        <h2 className="text-xl font-bold text-heading mb-4">⚙️ Configuration</h2>
         
         <Select value={model} onValueChange={(value: ModelType) => setModel(value)}>
-          <SelectTrigger className="bg-neutral-700 border-neutral-600">
+          <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white">
             <SelectValue placeholder="Select model" />
           </SelectTrigger>
-          <SelectContent className="bg-neutral-700">
-            <SelectItem value="deepseek-r1:1.5b">deepseek-r1:1.5b</SelectItem>
-            <SelectItem value="deepseek-r1:3b">deepseek-r1:3b</SelectItem>
+          <SelectContent className="bg-neutral-700 text-white">
+            <SelectItem value="deepseek-r1:1.5b">Deepseek-R1:1.5b</SelectItem>
+            <SelectItem value="deepseek-r1:7b">Deepseek-R1:7b</SelectItem>
           </SelectContent>
         </Select>
 
         <div className="mt-8">
-          <h3 className="text-lg font-semibold text-emerald-400 mb-2">Model Capabilities</h3>
+          <h3 className="text-lg font-semibold text-heading mb-2">Model Capabilities</h3>
           <ul className="space-y-2 text-neutral-300">
             <li className="flex items-center gap-2">🐍 Python Expert</li>
             <li className="flex items-center gap-2">🐞 Debugging Assistant</li>
@@ -131,7 +131,7 @@ const ChatApp : React.FC = () => {
       <div className="flex-1 flex flex-col">
         <div className="bg-neutral-800 p-4 flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-emerald-400">🧠 DeepSeek Code Companion</h1>
+            <h1 className="text-2xl font-bold text-heading">🐋 DeepSeek Code Companion</h1>
             <p className="text-neutral-400">Your AI Pair Programmer with Debugging Superpowers</p>
           </div>
           <input
@@ -160,13 +160,13 @@ const ChatApp : React.FC = () => {
               }`}
             >
               {message.role === 'ai' && (
-                <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-bot-bg flex items-center justify-center">
                   <Bot className="w-5 h-5 text-neutral-900" />
                 </div>
               )}
               <Card className={`max-w-[80%] ${
                 message.role === 'user' 
-                  ? 'bg-emerald-600 text-white' 
+                  ? 'bg-chat-bg-user text-white' 
                   : 'bg-neutral-800 text-neutral-100'
               }`}>
                 <CardContent className="p-3">

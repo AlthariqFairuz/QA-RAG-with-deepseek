@@ -12,8 +12,4 @@ export interface ChatResponse {
     response: string;
 }
 
-export interface UploadResponse {
-    message: string;
-}
-
-export type ModelType = 'deepseek-r1:1.5b' | 'deepseek-r1:3b';
+export type ModelType = 'deepseek-r1:1.5b' | 'deepseek-r1:7b';
