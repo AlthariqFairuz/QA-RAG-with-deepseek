@@ -1,5 +1,7 @@
 # QA-RAG with DeepSeek, Next.js, LangChain, and Ollama
 
+![Screenshot 2025-02-12 205155](https://github.com/user-attachments/assets/06ce5b14-ea0e-4b66-80c1-89ef365110fc)
+
 This project is a Question Answering system built using Retrieval Augmented Generation (RAG) with DeepSeek, a frontend built with Next.js, a backend powered by LangChain with FastAPI, and model interactions handled by Ollama. The entire application is containerized using Docker for easy deployment and scalability.
 
 ## Overview
