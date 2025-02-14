@@ -65,3 +65,5 @@ This project implements a QA-RAG system that allows users to ask questions and r
 - This application doesn't have any database connected, if you refresh the web, your entire history chat will be deleted.
 - The backend hasn't been deployed to cloud service, which means you must run this application in your own device in order to work properly.
 - The web is not responsive in mobile device (will be fixed soon).
+- Make sure the pulling process of the model is success like this (it might take some times):
+![Screenshot 2025-02-12 204718](https://github.com/user-attachments/assets/384750ff-42e1-42a7-82ab-5f56d71f14f5)
